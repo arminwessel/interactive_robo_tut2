@@ -5,6 +5,7 @@ function c=ComputeCCTorques(q,dq_dt)
 
     % Param�tres
     m=[15 10 1 7 1 0.5]';
+    iI = zeros(3,3,6);
     iI(:,:,1)=[0.80 0 0.05 ; 0 0.80 0 ; 0.05  0  0.10];
     iI(:,:,2)=[0.10  0  0.10; 0  1.50 0 ; 0.10  0  1.50];
     iI(:,:,3)=[0.05 0 0 ; 0 0.01 0 ; 0 0 0.05];
@@ -23,7 +24,6 @@ function c=ComputeCCTorques(q,dq_dt)
     z_G=[z_G1 z_G2 z_G3 z_G4 z_G5 z_G6]';
     d3 = 0.7; 
     r1 = 0.5; r3=0.0 ; r4 = 0.2;
-    alpha = [ 0 , pi/2 , 0 , pi/2 , -pi/2 , pi/2 ] ;
     alpha = [ 0 , pi/2 , 0 , pi/2 , -pi/2 , pi/2 ] ;
     Offset = [ 0 , 0 , pi/2 , 0 , 0 , 0  ] ;
     theta = q + Offset;

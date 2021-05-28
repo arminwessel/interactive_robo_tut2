@@ -8,9 +8,13 @@ thetai=qi+[0;0;pi/2;0;0;0];
 
 
 %% Test Q12
-[JvGs, JwGs] = ComputeJacGi(angles_alpha, distances_d, thetai, distances_r, G(1,:), G(2,:), G(3,:));
+[JvGs, JwGs] = ComputeJacGi(angles_alpha, distances_d, thetai, distances_r, coordinates_G(1,:), coordinates_G(2,:), coordinates_G(3,:));
 JvGs(:,:,6)
 JwGs(:,:,6)
 
 %% Test Q13
 A = ComputeMatInert(qi)
+
+%% Test Q14
+G = ComputeGravTorque(qi)
+G = ComputeGravTorque([0;pi/2;0;0;0;0])

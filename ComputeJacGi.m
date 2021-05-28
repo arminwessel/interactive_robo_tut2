@@ -2,6 +2,7 @@ function [Jvgi , Jwi] = ComputeJacGi(alpha, d , theta, r, xg, yg, zg)
     Jvgi = zeros(3,6,6);
     Jwi = zeros(3,6,6);
     J = ComputeJac(alpha,d,theta,r); % J^0_{O_i}
+    Joi = zeros(6,6,6);
     for i = 1:6
         OiGi_i = [xg(i);yg(i);zg(i)]; %vector from origin of frame i to center os mass of joint i in Frame i
         R_0i = get_R_0i(alpha,d,theta,r,i); % Rotation from Frame i to Frame 0
@@ -18,7 +19,8 @@ function [Jvgi , Jwi] = ComputeJacGi(alpha, d , theta, r, xg, yg, zg)
         skew_OEGi = [0 -OEGi(3) OEGi(2) ; OEGi(3) 0 -OEGi(1) ; -OEGi(2) OEGi(1) 0 ];
         
         M_varignon = [eye(3), -skew_OEGi; zeros(3,3), eye(3)];
-        J_trans_i = M_varignon * J;
+        Joi(:,1:i,i)=J(:,1:i);
+        J_trans_i = M_varignon * Joi(:,:,i);
         Jvgi(:,:,i) = J_trans_i(1:3,:);
         Jwi(:,:,i) = J_trans_i(4:6,:);
     end

@@ -9,13 +9,9 @@ for i = 1:6
     p_0E = g_0E(1:3,4);
     p_iE = p_0E - p_0i;
     
-%     temp = [R_0i*cross(Zi,p_iE);R_0i*Zi];
     temp = [cross(R_0i*Zi,p_iE);R_0i*Zi];
     
     J=[J temp];
 end
-%disp('end')
-
-
 end
 

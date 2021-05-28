@@ -3,10 +3,10 @@ if not(isequal(size(alpha),size(d),size(theta),size(r)))
     error('Geometric Model: parameter vectors need to have the same length')
 end
 g_06 = eye(4); % initial value
-for i = 1:size(alpha)
+for i = 1:6
     g_06 = g_06 * TransformMatElem(alpha(i),d(i),theta(i),r(i));
 end
-global rE;
+rE=0.1;
 g_0E = g_06 * [eye(3),[0;0;rE];[0,0,0,1]];
 
 end
