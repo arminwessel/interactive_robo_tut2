@@ -8,28 +8,59 @@ qi=-pi/2*[1,0,1,1,1,1]';
 thetai=qi+[0;0;pi/2;0;0;0];
 
 
-%% Test Q12
+%% Q12
 disp('Question 12');
 [JvGs, JwGs] = ComputeJacGi(angles_alpha, distances_d, thetai, distances_r, coordinates_G(1,:), coordinates_G(2,:), coordinates_G(3,:));
 JvGs(:,:,6)
 JwGs(:,:,6)
 
-%% Test Q13
+%% Q13
 disp('Question 13');
 A = ComputeMatInert(qi)
 
-%% Test Q15
+
+%% Q14 
+% We don't know if the vertical or the horizontal configurations will have
+% higher eigenvalues so we try both
+% The lowest should be moving only the end effector
+
+% Vertical
+q_ver = pi*[0;0.5;0;0;0;0];
+A_ver = ComputeMatInert(q_ver);
+[U_ver,S_ver,V_ver] = svd(A_ver);
+U_ver
+S_ver 
+      % sigma max = 10.1986 using q2 and q3 in the same direction
+      % sigma_min = 0.0574 moving the end effector with q6 but also
+      % compensating with q4 in the opposite direction
+      
+% Horiztonal
+q_hor = pi*[0;0;0;0;0;0];
+A_hor = ComputeMatInert(q_hor);
+[U_hor,S_hor,V_hor] = svd(A_hor);
+U_hor
+S_hor 
+      % sigma_max = 10.976, lower, and similar value obtained with only
+      % using q1
+      % sigma_min equal to vertical configuration
+%% Q15
 disp('Question 15');
 G = ComputeGravTorque(qi)
 G = ComputeGravTorque([0;pi/2;0;0;0;0]) % upright position of the robot arm should produce zero forces on joints (structure bearing 100% support)
+
+%% Q16
+q_hor = pi*[0;0;0;0;0;0];
+sum(ComputeGravTorque(q_hor))
+
 
 %% Q18
 disp('Question 18');
 q_d_i = [-1;0;-1;-1;-1;-1];
 q_d_f = [0;1;0;0;0;0];
 
-% MU2 value not calculated!!
-mu2 = 50; % DUMMY VALUE
+% MU2 from Q14
+mu2 = 10.976;
+
 
 
 % Maximum acceleration
